@@ -10,18 +10,1171 @@
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="assets/styles-01.css">
+    <style>
+      :root {
+        --crimson: #8b1a1a;
+        --crimson-dark: #6b1212;
+        --crimson-light: #b02020;
+        --orange: #d4622a;
+        --orange-light: #e07840;
+        --bg: #ffffff;
+        --surface: #f8f5f3;
+        --surface2: #f2edea;
+        --text: #1a1210;
+        --text-muted: #6b5c55;
+        --text-light: #9c8880;
+        --border: rgba(139, 26, 26, 0.12);
+        --border-soft: rgba(0, 0, 0, 0.07);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Cairo", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+      body.en {
+        font-family: "Inter", sans-serif;
+        direction: ltr;
+      }
+      [data-en] {
+        display: none !important;
+      }
+      [data-ar] {
+        display: revert !important;
+      }
+      body.en [data-ar] {
+        display: none !important;
+      }
+      body.en [data-en] {
+        display: revert !important;
+      }
+
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(12px);
+        border-bottom: 0.5px solid var(--border-soft);
+        padding: 0 5vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 72px;
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-muted);
+        font-size: 14px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--crimson);
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .lang-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 16px;
+        border-radius: 20px;
+        border: 1.5px solid var(--crimson);
+        background: transparent;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--crimson);
+        text-decoration: none;
+        transition: all 0.2s;
+        letter-spacing: 0.3px;
+      }
+      .lang-btn:hover {
+        background: var(--crimson);
+        color: #fff;
+      }
+
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 22px;
+        border-radius: 6px;
+        background: var(--crimson);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .btn-primary:hover {
+        background: var(--crimson-dark);
+        transform: translateY(-1px);
+      }
+
+      .hero {
+        min-height: 88vh;
+        display: flex;
+        align-items: center;
+        padding: 6rem 5vw 5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background: #f4f3f1;
+      }
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .hero-grid::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          105deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.72) 38%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        z-index: 2;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 680px;
+      }
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        color: var(--crimson);
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        padding: 5px 14px;
+        border-radius: 20px;
+        background: rgba(139, 26, 26, 0.07);
+      }
+      body.en .hero-eyebrow {
+        letter-spacing: 2px;
+      }
+      .hero h1 {
+        font-size: clamp(2.2rem, 5vw, 3.8rem);
+        font-weight: 800;
+        line-height: 1.2;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+      }
+      .hero h1 span {
+        color: var(--crimson);
+      }
+      .hero p {
+        font-size: 1.05rem;
+        color: var(--text-muted);
+        max-width: 520px;
+        margin-bottom: 2.5rem;
+        line-height: 1.8;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 22px;
+        border-radius: 6px;
+        border: 1.5px solid var(--border);
+        color: var(--text-muted);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .btn-ghost:hover {
+        border-color: var(--crimson);
+        color: var(--crimson);
+      }
+      .hero-btns .btn-primary,
+      .hero-btns .btn-ghost {
+        min-width: 172px;
+        min-height: 44px;
+        justify-content: center;
+      }
+
+      .stats-bar {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0;
+        margin-top: 4rem;
+        padding-top: 3rem;
+        border-top: 0.5px solid var(--border-soft);
+      }
+      .stat-item {
+        min-width: 0;
+        padding: 0 1.25rem;
+        text-align: center;
+      }
+      .stat-item:not(:first-child) {
+        border-inline-start: 0.5px solid var(--border-soft);
+      }
+      .stat-num {
+        font-size: 2.4rem;
+        font-weight: 800;
+        color: var(--crimson);
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
+
+      section {
+        padding: 5rem 5vw;
+      }
+      .section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        color: var(--crimson);
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+      .section-label::before {
+        content: "";
+        width: 24px;
+        height: 2px;
+        background: var(--crimson);
+        border-radius: 2px;
+        display: inline-block;
+      }
+      body.en .section-label::before {
+        order: -1;
+      }
+      body:not(.en) .section-label::before {
+        order: 1;
+      }
+      h2.section-title {
+        font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+        font-weight: 800;
+        line-height: 1.25;
+        margin-bottom: 1rem;
+      }
+      .section-sub {
+        font-size: 1rem;
+        color: var(--text-muted);
+        max-width: 540px;
+        line-height: 1.8;
+      }
+
+      .project-thumb-img {
+        padding: 0 !important;
+        background: none !important;
+        overflow: hidden;
+      }
+      .project-thumb-img img {
+        transition: transform 0.4s ease;
+      }
+      .project-card:hover .project-thumb-img img {
+        transform: scale(1.05);
+      }
+
+      .projects-tabs {
+        display: flex;
+        gap: 0;
+        margin-top: 2.5rem;
+        border-bottom: 1.5px solid var(--border-soft);
+      }
+      .ptab {
+        padding: 12px 28px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-muted);
+        border: none;
+        background: none;
+        font-family: inherit;
+        border-bottom: 2.5px solid transparent;
+        margin-bottom: -1.5px;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .ptab:hover {
+        color: var(--crimson);
+      }
+      .ptab.active {
+        color: var(--crimson);
+        border-bottom-color: var(--crimson);
+      }
+      .ptab .ptab-badge {
+        font-size: 11px;
+        font-weight: 700;
+        background: rgba(139, 26, 26, 0.1);
+        color: var(--crimson);
+        padding: 2px 8px;
+        border-radius: 20px;
+      }
+      .ptab.active .ptab-badge {
+        background: var(--crimson);
+        color: #fff;
+      }
+      .ptab-panel {
+        display: none;
+      }
+      .ptab-panel.active {
+        display: block;
+      }
+
+      .unesco-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      @media (max-width: 900px) {
+        .unesco-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 560px) {
+        .unesco-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .unesco-card {
+        border-radius: 14px;
+        overflow: hidden;
+        position: relative;
+        height: 260px;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.09);
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .unesco-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.16);
+      }
+      .unesco-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+      .unesco-card:hover img {
+        transform: scale(1.07);
+      }
+      .unesco-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(8, 4, 4, 0.88) 0%,
+          rgba(8, 4, 4, 0.15) 50%,
+          transparent 100%
+        );
+      }
+      .unesco-card-body {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1.1rem 1.2rem;
+      }
+      .unesco-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        color: #fff;
+        background: rgba(139, 26, 26, 0.82);
+        backdrop-filter: blur(4px);
+        padding: 3px 9px;
+        border-radius: 20px;
+        margin-bottom: 0.45rem;
+      }
+      .unesco-card-body h3 {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #fff;
+        line-height: 1.3;
+        margin: 0;
+      }
+      .unesco-card-body p {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.72);
+        line-height: 1.55;
+        margin-top: 0.25rem;
+      }
+      .unesco-card.featured {
+        grid-column: span 2;
+        height: 300px;
+      }
+      @media (max-width: 900px) {
+        .unesco-card.featured {
+          grid-column: span 2;
+        }
+      }
+      @media (max-width: 560px) {
+        .unesco-card.featured {
+          grid-column: span 1;
+          height: 260px;
+        }
+      }
+
+      .works-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        gap: 1.25rem;
+        margin-top: 2rem;
+      }
+      .work-card {
+        border-radius: 14px;
+        overflow: hidden;
+        border: 0.5px solid var(--border-soft);
+        background: var(--bg);
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s,
+          border-color 0.25s;
+      }
+      .work-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(139, 26, 26, 0.09);
+        border-color: rgba(139, 26, 26, 0.2);
+      }
+      .work-thumb {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+      }
+      .work-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+      .work-card:hover .work-thumb img {
+        transform: scale(1.05);
+      }
+      .work-body {
+        padding: 1.25rem 1.5rem 1.5rem;
+      }
+      .work-tag {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--crimson);
+        background: rgba(139, 26, 26, 0.08);
+        padding: 3px 10px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-bottom: 0.7rem;
+      }
+      .work-body h3 {
+        font-size: 0.98rem;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+        line-height: 1.4;
+      }
+      .work-body p {
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.65;
+      }
+
+      .work-category {
+        margin-top: 2.5rem;
+      }
+      .work-category:first-of-type {
+        margin-top: 2rem;
+      }
+      .work-category-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: var(--crimson);
+        margin-bottom: 0.25rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1.5px solid var(--border-soft);
+      }
+      .work-category-title::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        background: var(--crimson);
+        flex-shrink: 0;
+        transform: rotate(45deg);
+      }
+      .work-category .works-grid:empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 90px;
+        margin-top: 1rem;
+        border: 1.5px dashed var(--border-soft);
+        border-radius: 14px;
+        color: var(--text-light);
+        font-size: 13px;
+      }
+      .work-category .works-grid:empty::after {
+        content: "سيتم إضافة المشاريع هنا قريبًا";
+      }
+      body.en .work-category .works-grid:empty::after {
+        content: "Projects coming soon";
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        margin-top: 3.5rem;
+      }
+      @media (max-width: 768px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+        }
+        body:not(.en) .about-visual {
+          order: -1;
+        }
+        body.en .about-visual {
+          order: -1;
+        }
+      }
+      .about-visual {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        background: var(--surface);
+        padding: 2.5rem;
+        border: 0.5px solid var(--border-soft);
+      }
+      .about-icon-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+      .about-icon-card {
+        aspect-ratio: 1;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        background: var(--bg);
+        border: 0.5px solid var(--border-soft);
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .about-icon-card:hover {
+        border-color: var(--crimson);
+        color: var(--crimson);
+      }
+      .about-icon-card svg {
+        width: 28px;
+        height: 28px;
+      }
+
+      .value-list {
+        list-style: none;
+        margin-top: 1.5rem;
+      }
+      .value-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 0.5px solid var(--border-soft);
+        font-size: 15px;
+        color: var(--text-muted);
+      }
+      body.en .value-list li {
+        flex-direction: row;
+      }
+      .value-list li .check {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: rgba(139, 26, 26, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2px;
+      }
+      .value-list li .check svg {
+        width: 11px;
+        height: 11px;
+        stroke: var(--crimson);
+      }
+
+      #services {
+        background: var(--surface);
+      }
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.25rem;
+        margin-top: 3rem;
+      }
+      .service-card {
+        background: var(--bg);
+        border: 0.5px solid var(--border-soft);
+        border-radius: 14px;
+        padding: 2rem;
+        transition:
+          border-color 0.25s,
+          transform 0.25s,
+          box-shadow 0.25s;
+        position: relative;
+        overflow: hidden;
+      }
+      .service-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 4px;
+        height: 60px;
+        border-radius: 0 0 0 4px;
+        background: var(--crimson);
+        opacity: 0;
+        transition:
+          opacity 0.25s,
+          height 0.3s;
+      }
+      body.en .service-card::before {
+        right: auto;
+        left: 0;
+        border-radius: 0 0 4px 0;
+      }
+      .service-card:hover {
+        border-color: rgba(139, 26, 26, 0.25);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 32px rgba(139, 26, 26, 0.08);
+      }
+      .service-card:hover::before {
+        opacity: 1;
+        height: 100%;
+      }
+      .service-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        background: rgba(139, 26, 26, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+      }
+      .service-icon svg {
+        width: 26px;
+        height: 26px;
+        stroke: var(--crimson);
+      }
+      .service-card h3 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      .service-card p {
+        font-size: 14px;
+        color: var(--text-muted);
+        line-height: 1.7;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.25rem;
+        margin-top: 3rem;
+      }
+      .project-card {
+        border-radius: 14px;
+        overflow: hidden;
+        border: 0.5px solid var(--border-soft);
+        background: var(--bg);
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+      }
+      .project-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+      }
+      .project-thumb {
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .project-thumb svg {
+        width: 64px;
+        height: 64px;
+        opacity: 0.6;
+      }
+      .project-body {
+        padding: 1.25rem 1.5rem 1.5rem;
+      }
+      .project-tag {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--crimson);
+        background: rgba(139, 26, 26, 0.08);
+        padding: 3px 10px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        display: inline-block;
+        margin-bottom: 0.75rem;
+      }
+      .project-body h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+      }
+      .project-body p {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      #why {
+        background: var(--crimson);
+        color: #fff;
+      }
+      #why .section-label {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      #why .section-label::before {
+        background: rgba(255, 255, 255, 0.4);
+      }
+      #why h2.section-title {
+        color: #fff;
+      }
+      #why .section-sub {
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1px;
+        margin-top: 3rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .why-card {
+        background: var(--crimson);
+        padding: 2rem 1.75rem;
+        transition: background 0.2s;
+      }
+      .why-card:hover {
+        background: var(--crimson-dark);
+      }
+      .why-num {
+        font-size: 2.8rem;
+        font-weight: 800;
+        color: rgba(255, 255, 255, 0.15);
+        line-height: 1;
+        margin-bottom: 0.75rem;
+      }
+      .why-card h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+      .why-card p {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.7;
+      }
+
+      #contact {
+        background: var(--surface);
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        margin-top: 3rem;
+        align-items: start;
+      }
+      @media (max-width: 768px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+        }
+      }
+      .contact-info-list {
+        list-style: none;
+        margin-top: 2rem;
+      }
+      .contact-info-list li {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 0.5px solid var(--border-soft);
+        font-size: 15px;
+      }
+      body.en .contact-info-list li {
+        flex-direction: row;
+      }
+      .ci-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: rgba(139, 26, 26, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .ci-icon svg {
+        width: 18px;
+        height: 18px;
+        stroke: var(--crimson);
+      }
+      .ci-label {
+        font-size: 11px;
+        color: var(--text-light);
+        margin-bottom: 2px;
+      }
+      .ci-val {
+        font-weight: 600;
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .form-group label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1px solid var(--border-soft);
+        background: var(--bg);
+        font-family: inherit;
+        font-size: 14px;
+        color: var(--text);
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        outline: none;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        border-color: var(--crimson);
+        box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.1);
+      }
+      .form-group textarea {
+        resize: vertical;
+        min-height: 110px;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      footer {
+        background: var(--text);
+        color: rgba(255, 255, 255, 0.6);
+        padding: 2rem 5vw 1.4rem;
+      }
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 1.4rem;
+        padding-bottom: 1.4rem;
+        border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+      }
+      .footer-brand p {
+        font-size: 13px;
+        max-width: 280px;
+        margin-top: 1rem;
+        line-height: 1.7;
+      }
+      .footer-links h4 {
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+      .footer-links ul {
+        list-style: none;
+      }
+      .footer-links ul li + li {
+        margin-top: 0.5rem;
+      }
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        font-size: 13px;
+        transition: color 0.2s;
+      }
+      .footer-links a:hover {
+        color: #fff;
+      }
+      .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding-top: 1rem;
+        font-size: 12px;
+      }
+      .footer-bottom a {
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+      }
+
+      #team {
+        background: var(--surface);
+      }
+      .team-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 3rem;
+      }
+      .team-lead-row {
+        display: flex;
+        justify-content: center;
+      }
+      .team-managers-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+      }
+      .team-card {
+        background: var(--bg);
+        border: 0.5px solid var(--border-soft);
+        border-radius: 14px;
+        padding: 1.75rem 1.5rem;
+        text-align: center;
+        min-height: 220px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        transition:
+          border-color 0.25s,
+          transform 0.25s,
+          box-shadow 0.25s;
+      }
+      .team-card-ceo {
+        width: min(360px, 100%);
+        border-color: rgba(139, 26, 26, 0.22);
+        box-shadow: 0 10px 32px rgba(139, 26, 26, 0.08);
+      }
+      .team-card:hover {
+        border-color: rgba(139, 26, 26, 0.25);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 28px rgba(139, 26, 26, 0.09);
+      }
+      .team-avatar {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f5eeee, #f0e8e8);
+        border: 2px solid rgba(139, 26, 26, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        overflow: hidden;
+      }
+      .team-avatar svg {
+        width: 56px;
+        height: 56px;
+      }
+      .team-card h3 {
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin-bottom: 0.35rem;
+        min-height: 2.4em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .team-card .team-role {
+        font-size: 12px;
+        color: var(--crimson);
+        font-weight: 600;
+        line-height: 1.55;
+        min-height: 3.1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .team-divider {
+        height: 1px;
+        background: var(--border-soft);
+        margin: 2.5rem 0;
+      }
+      .team-sub-title {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: var(--text-muted);
+      }
+      .team-sub-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1rem;
+      }
+      .team-sub-card {
+        background: rgba(139, 26, 26, 0.05);
+        border-radius: 10px;
+        padding: 1rem 1.25rem;
+        text-align: center;
+      }
+      .team-sub-card h4 {
+        font-size: 0.85rem;
+        font-weight: 700;
+        margin-bottom: 0.2rem;
+      }
+      .team-sub-card .sub-role {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+
+      .logo-svg {
+        height: 44px;
+        width: auto;
+      }
+      .logo-svg-white {
+        height: 38px;
+        width: auto;
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+        .stats-bar {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          row-gap: 1.5rem;
+        }
+        .stat-item {
+          border: none !important;
+          padding: 0 !important;
+        }
+        .team-managers-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .team-card {
+          min-height: 210px;
+        }
+        .hero {
+          padding-top: 4rem;
+        }
+      }
+    </style>
   </head>
-  <body>
-    <!-- ═══════════════ NAV ═══════════════ -->
+  <body dir="rtl">
     <nav>
       <a class="nav-logo" href="#">
-        <!-- LOGO: transparent background SVG replica -->
         <img
-          src="assets/images/image-001-79697f4c2e92.png"
+          src="images/logo-nav.png"
           alt="Majal Al Enjaz"
           class="logo-svg"
-          style="height: 52px; width: auto; object-fit: contain"
+          style="height: 44px; width: auto; object-fit: contain"
         />
       </a>
 
@@ -50,14 +1203,13 @@
           </svg>
           <span id="langLabel">English</span>
         </button>
-        <a class="btn-primary" href="#contact">
+        <a class="lang-btn" href="#contact">
           <span data-ar>تواصل معنا</span>
           <span data-en>Get in Touch</span>
         </a>
       </div>
     </nav>
 
-    <!-- ═══════════════ HERO ═══════════════ -->
     <section class="hero">
       <div class="hero-bg"></div>
       <div class="hero-grid">
@@ -94,7 +1246,6 @@
             </linearGradient>
           </defs>
 
-          <!-- Large background slab — far right -->
           <rect
             x="820"
             y="-120"
@@ -106,7 +1257,6 @@
             rx="4"
           />
 
-          <!-- Second large slab — overlapping -->
           <rect
             x="960"
             y="-80"
@@ -118,7 +1268,6 @@
             rx="4"
           />
 
-          <!-- Thin tall accent slab -->
           <rect
             x="1200"
             y="-60"
@@ -130,7 +1279,6 @@
             rx="3"
           />
 
-          <!-- Bottom-left grounding slab -->
           <rect
             x="-180"
             y="580"
@@ -143,7 +1291,6 @@
             opacity="0.7"
           />
 
-          <!-- Hairline stroke rectangles — architectural detail -->
           <rect
             x="830"
             y="-110"
@@ -167,7 +1314,6 @@
             rx="3"
           />
 
-          <!-- Small accent square — top right corner detail -->
           <rect
             x="1310"
             y="-40"
@@ -180,7 +1326,6 @@
             rx="2"
           />
 
-          <!-- Thin horizontal rule — subtle grounding line -->
           <line
             x1="0"
             y1="858"
@@ -198,24 +1343,18 @@
         </div>
         <h1>
           <span data-ar
-            >نبني مستقبل<br /><span style="color: var(--orange)">الإنجاز</span>
-            بخبرة<br />متقدمة</span
+            >بناء <span style="color: var(--orange)">المستقبل</span><br />مع صون الماضي</span
           >
           <span data-en
-            >Building Tomorrow<br />With <span style="color: var(--orange)">Advanced</span
-            ><br />Excellence</span
+            >Building the <span style="color: var(--orange)">Future</span><br />While Preserving the Past</span
           >
         </h1>
         <p>
           <span data-ar
-            >شركة رائدة في الأعمال الإنشائية المتقدمة وترميم المواقع التراثية. موثوق بها من قِبل
-            أكثر من 20 جهة حكومية سعودية، بخبرة تمتد لأكثر من 21 عاماً وأعمال في 8 مواقع تراث عالمي
-            معتمدة من اليونسكو.</span
+            >نقدم أعمالاً إنشائية متقدمة وخدمات ترميم للمواقع التراثية، ونمتلك خبرة تمتد لأكثر من 21 عاماً في العمل مع أكثر من 20 جهة حكومية سعودية، إلى جانب تنفيذ أعمال في 8 مواقع تراث عالمي مسجلة في اليونسكو.</span
           >
           <span data-en
-            >A leading company in advanced construction works and heritage site restoration. Trusted
-            by over 20 Saudi government entities with 21+ years of experience and works at 8 UNESCO
-            World Heritage Sites.</span
+            >We deliver advanced construction works and heritage site restoration services, with over 21 years of experience working with more than 20 Saudi government entities and projects across 8 UNESCO World Heritage Sites.</span
           >
         </p>
         <div class="hero-btns">
@@ -236,6 +1375,16 @@
           <a href="#projects" class="btn-ghost">
             <span data-ar>مشاريعنا</span>
             <span data-en>Our Projects</span>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
           </a>
         </div>
         <div class="stats-bar">
@@ -267,7 +1416,6 @@
       </div>
     </section>
 
-    <!-- ═══════════════ ABOUT ═══════════════ -->
     <section id="about">
       <div class="section-label"><span data-ar>من نحن</span><span data-en>About Us</span></div>
       <h2 class="section-title">
@@ -297,19 +1445,18 @@
             "
           >
             <span data-ar
-              >تعمل الشركة في مجالات متنوعة تشمل: تشييد المباني والمستشفيات والمنشآت المتخصصة،
+              >تعمل الشركة في مجالات متنوعة تشمل: تشييد المباني وتنفيذ المشاريع الإنشائية المتخصصة،
               وترميم وصيانة المواقع التراثية، والدراسات البيئية والأبحاث العلمية، والتصوير الجوي
               والتصوير ثالثي الأبعاد، واكتشاف وتنقيب وتوثيق الآثار، والمسح البحري بالغواصات المتحكم
-              بها عن بُعد، إضافةً إلى خدمات الأمن الصناعي وبرامج التدريب وبناء القدرات. موثوق بها من
-              قِبل أكثر من 20 جهة حكومية سعودية وبخبرة تمتد لأكثر من 21 عاماً.</span
+              بها عن بُعد، إضافةً إلى خدمات الأمن الصناعي وبرامج التدريب وبناء القدرات. نعمل مع أكثر من 20 جهة حكومية سعودية ونمتلك خبرة تمتد لأكثر من 21 عاماً.</span
             >
             <span data-en
-              >The company operates across a diverse portfolio spanning construction of buildings,
-              hospitals, and specialized facilities, restoration and conservation of heritage sites,
+              >The company operates across a diverse portfolio spanning building construction
+              and specialized structural projects, restoration and conservation of heritage sites,
               environmental studies, scientific research, aerial photography and 3D imaging,
               discovery and documentation of antiquities, advanced marine surveying with remotely
               operated submarines, industrial security services, and specialized training programs.
-              Trusted by over 20 Saudi government entities with 21+ years of experience.</span
+              We work with more than 20 Saudi government entities and bring over 21 years of experience.</span
             >
           </p>
           <ul class="value-list">
@@ -323,7 +1470,7 @@
                     stroke-linejoin="round"
                   /></svg
               ></span>
-              <span data-ar>خبرة في 8 مواقع تراث عالمي معتمدة من اليونسكو</span
+              <span data-ar>خبرة في 8 مواقع تراث عالمي مسجلة في اليونسكو</span
               ><span data-en>Experience in 8 UNESCO World Heritage Sites</span>
             </li>
             <li>
@@ -421,28 +1568,25 @@
             "
           >
             <div style="font-size: 13px; color: var(--text-muted); line-height: 1.7">
-              <span data-ar>🇸🇦 شركة سعودية 100% — نفخر بالمساهمة في تحقيق رؤية 2030</span>
-              <span data-en>🇸🇦 100% Saudi Company — proud to contribute to Vision 2030</span>
+              <span data-ar>شركة سعودية بخبرات وطنية تدعم مستهدفات رؤية المملكة 2030</span>
+              <span data-en>A Saudi company with national expertise supporting the objectives of Saudi Vision 2030</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ═══════════════ SERVICES ═══════════════ -->
     <section id="services">
-      <div class="section-label"><span data-ar>خدماتنا</span><span data-en>Our Services</span></div>
       <h2 class="section-title">
-        <span data-ar>ما نقدمه لكم</span>
-        <span data-en>What We Offer</span>
+        <span data-ar>خدماتنا</span>
+        <span data-en>Services</span>
       </h2>
       <p class="section-sub">
         <span data-ar
-          >نقدم مجموعة متكاملة من الخدمات المتقدمة التي تغطي احتياجاتكم من الألف إلى الياء.</span
+          >نقدم منظومة خدمات متخصصة تدعم تنفيذ المشاريع بمهنية عالية، وفق متطلبات كل قطاع وطبيعة كل مشروع.</span
         >
         <span data-en
-          >We offer a comprehensive range of advanced services that cover your needs from start to
-          finish.</span
+          >We provide an integrated range of specialized services that support professional project delivery in line with each sector's requirements and project scope.</span
         >
       </p>
       <div class="services-grid">
@@ -456,8 +1600,7 @@
           <h3><span data-ar>الهندسة الإنشائية</span><span data-en>Structural Engineering</span></h3>
           <p>
             <span data-ar
-              >حلول هندسية وإنشائية متكاملة تشمل أعمال الهدم والأعمال المدنية وأنظمة الميكانيكا
-              والكهرباء والسباكة (MEP) وأعمال التشطيبات وتطوير المواقع.</span
+              >نقدم حلولاً هندسية وإنشائية متكاملة تشمل أعمال الهدم والأعمال الإنشائية والمدنية وأنظمة الميكانيكا والكهرباء والسباكة (MEP) وأعمال التشطيبات وتطوير المواقع.</span
             ><span data-en
               >Integrated engineering and construction solutions including demolition, civil works,
               MEP systems, finishing works, and site development.</span
@@ -475,8 +1618,7 @@
           <h3><span data-ar>العمارة والتصميم</span><span data-en>Architecture & Design</span></h3>
           <p>
             <span data-ar
-              >خدمات متكاملة في العمارة والتصميم تشمل التصميم المفاهيمي والتخطيط والمواصفات
-              الإنشائية التفصيلية واختيار المواد وإعداد وثائق البناء وفق الأنظمة المعتمدة.</span
+              >نقدم خدمات متكاملة في مجال العمارة والتصميم تشمل التصميم المفاهيمي وتطوير التصاميم والتخطيط والتحليل وإعداد المواصفات الفنية لأنظمة التشغيل واختيار المواد وتطوير الأفكار والتجهيزات (FF&E) بالإضافة إلى إعداد وثائق البناء والالتزام بالاشتراطات والأنظمة المعتمدة.</span
             ><span data-en
               >Comprehensive architecture and design services including conceptual design, planning,
               detailed specifications, material selection, FF&E procurement, and construction
@@ -494,8 +1636,7 @@
           <h3><span data-ar>التراث العمراني</span><span data-en>Urban Heritage</span></h3>
           <p>
             <span data-ar
-              >توظيف تقنيات الحفظ للحفاظ على التراث المعماري وتعزيز استدامته، وتشمل خدماتنا التكامل
-              والمحاكاة والابتكار وإعادة البناء وإعادة التأهيل والترميم.</span
+              >نقدم مجموعة من التقنيات والحلول لإعادة تأهيل عناصر التراث العمراني وتعزيز استدامته، بما يسهم في إثراء القيم الثقافية والتراثية. وتشمل خدماتنا التكامل والمحاكاة والابتكار والصون وإعادة البناء وإدارة التأهيل والترميم.</span
             ><span data-en
               >Conservation techniques to preserve architectural heritage, including consolidation,
               simulation, innovation, reconstruction, rehabilitation, and restoration of heritage
@@ -514,8 +1655,7 @@
           <h3><span data-ar>الاستشارات التراثية</span><span data-en>Heritage Consultancy</span></h3>
           <p>
             <span data-ar
-              >خدمات استشارية متخصصة في مجال التراث تشمل التوثيق الهندسي والدراسات الأثرية والتصميم
-              المعماري ومنهجيات الصون واختبارات المواد للمباني التراثية.</span
+              >نقدم خدمات استشارية متخصصة في مجال التراث تشمل التوثيق الهندسي والدراسات الأثرية والتصميم المعماري ومنهجيات الصون واختبارات المواد للمباني التراثية.</span
             ><span data-en
               >Specialized consultancy in the heritage field including engineering documentation,
               archaeological studies, architectural design, conservation programs, and material
@@ -535,8 +1675,7 @@
           <h3><span data-ar>البحث العلمي</span><span data-en>Scientific Research</span></h3>
           <p>
             <span data-ar
-              >دراسات وأبحاث لجمع ورصد وتحليل الدراسات الأثرية، إلى جانب الخدمات الاستشارية والدعم
-              العلمي للدراسات المتخصصة في الآثار والتراث الوطني.</span
+              >نقدم خدمات الدراسات والأبحاث لجمع ورصد وتحليل الدراسات الأثرية، إلى جانب تقديم الخدمات الاستشارية والدعم العلمي للدراسات المتخصصة في مجال الآثار والتراث الوطني، بما يشمل مختلف التخصصات الأثرية والتراثية.</span
             ><span data-en
               >Studies and research for collection, monitoring, and analysis of archaeological data,
               along with consultancy and scientific support for specialized studies in archaeology
@@ -558,8 +1697,7 @@
           </h3>
           <p>
             <span data-ar
-              >أعمال المسح الأثري والتنقيب والتوثيق الشامل باستخدام تقنيات متقدمة مثل GNSS والتصوير
-              الجوي بالطائرات المسيّرة والتوثيق ثالثي الأبعاد والمسح بالليزر.</span
+              >نقوم بإجراء أعمال المسح الأثري والتنقيب والتوثيق العلمي الشامل باستخدام تقنيات متقدمة مثل المسح بنظام GNSS والتصوير الجوي بالطائرات المسيرة والتوثيق ثلاثي الأبعاد والمسح بالليزر، وذلك بالتعاون مع مختبرات التراث الدولية الرائدة.</span
             ><span data-en
               >Archaeological survey, excavation, and documentation using advanced technologies
               including GNSS, drone aerial imaging, 3D documentation, and laser scanning, in
@@ -570,24 +1708,12 @@
       </div>
     </section>
 
-    <!-- ═══════════════ PROJECTS ═══════════════ -->
     <section id="projects" style="background: var(--bg)">
-      <div class="section-label">
-        <span data-ar>مشاريعنا</span><span data-en>Our Projects</span>
-      </div>
       <h2 class="section-title">
-        <span data-ar>أعمالنا الميدانية</span>
-        <span data-en>Our Work on the Ground</span>
+        <span data-ar>مشاريعنا</span>
+        <span data-en>Our Projects</span>
       </h2>
-      <p class="section-sub">
-        <span data-ar>من مواقع التراث العالمي إلى المنشآت الحيوية — نُنجز بمعايير استثنائية.</span>
-        <span data-en
-          >From UNESCO World Heritage Sites to critical facilities — we deliver to exceptional
-          standards.</span
-        >
-      </p>
 
-      <!-- Tabs -->
       <div class="projects-tabs">
         <button class="ptab active" onclick="switchTab('unesco', this)">
           <svg
@@ -622,12 +1748,11 @@
         </button>
       </div>
 
-      <!-- UNESCO Panel -->
       <div class="ptab-panel active" id="panel-unesco">
         <div class="unesco-grid">
           <div class="unesco-card featured">
             <img
-              src="assets/images/image-002-2b08e921958f.png"
+              src="images/heritage-al-hijr-hegra-alula.png"
               alt="موقع الحِجر – العُلا"
             />
             <div class="unesco-overlay"></div>
@@ -654,7 +1779,7 @@
 
           <div class="unesco-card">
             <img
-              src="assets/images/image-003-63d9464698db.png"
+              src="images/heritage-diriyah-at-turaif.png"
               alt="حي الطريف التاريخي"
             />
             <div class="unesco-overlay"></div>
@@ -681,7 +1806,7 @@
 
           <div class="unesco-card">
             <img
-              src="assets/images/image-004-7c94f24ee946.png"
+              src="images/heritage-uruq-bani-maarid.png"
               alt="عروق بني معارض"
             />
             <div class="unesco-overlay"></div>
@@ -705,7 +1830,7 @@
 
           <div class="unesco-card">
             <img
-              src="assets/images/image-005-1cbb1b1fa715.png"
+              src="images/heritage-al-ahsa-oasis.png"
               alt="واحة الأحساء"
             />
             <div class="unesco-overlay"></div>
@@ -729,7 +1854,7 @@
 
           <div class="unesco-card">
             <img
-              src="assets/images/image-006-71325ea762d4.png"
+              src="images/heritage-hima-cultural-area.png"
               alt="موقع حِمى الثقافي"
             />
             <div class="unesco-overlay"></div>
@@ -753,7 +1878,7 @@
 
           <div class="unesco-card">
             <img
-              src="assets/images/image-007-c2780a54df1e.png"
+              src="images/heritage-al-faw-archaeological.png"
               alt="منطقة الفاو الأثرية"
             />
             <div class="unesco-overlay"></div>
@@ -780,7 +1905,7 @@
 
           <div class="unesco-card">
             <img
-              src="assets/images/image-008-461a881c5666.png"
+              src="images/heritage-rock-art-hail.png"
               alt="الفنون الصخرية بحائل"
             />
             <div class="unesco-overlay"></div>
@@ -807,7 +1932,7 @@
 
           <div class="unesco-card">
             <img
-              src="assets/images/image-009-397a9cf60b11.png"
+              src="images/heritage-jeddah-historical.png"
               alt="جدة التاريخية"
             />
             <div class="unesco-overlay"></div>
@@ -831,7 +1956,6 @@
         </div>
       </div>
 
-      <!-- Featured Works Panel -->
       <div class="ptab-panel" id="panel-works">
         <div class="work-category">
           <h3 class="work-category-title">
@@ -842,14 +1966,14 @@
             <div class="work-card">
               <div class="work-thumb" style="height: 200px; position: relative; overflow: hidden">
                 <img
-                  src="assets/images/image-010-aa8586cc8312.png"
+                  src="images/desalination-security-hq.png"
                   style="width: 100%; height: 100%; object-fit: cover"
                   alt="مقر أمن المنشآت بمحطات التحلية"
                 />
               </div>
               <div class="work-body">
-                <h3>إنشاء (10) مقرات لأمن المنشآت بمحطات التحلية</h3>
-                <p style="margin-bottom: 0.75rem">الموقع: المنطقة الجنوبية</p>
+                <h3><span data-ar>إنشاء (10) مقرات لأمن المنشآت بمحطات التحلية</span><span data-en>Construction of (10) Facilities Security Headquarters at Desalination Plants</span></h3>
+                <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: المنطقة الجنوبية</span><span data-en>Location: Southern Region</span></p>
                 <div
                   style="
                     display: flex;
@@ -860,12 +1984,12 @@
                   "
                 >
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"
-                    >الجهة المالكة:</span
+                    ><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span
                   >
                   <img
-                    src="assets/images/image-011-2f0dbc80ea21.svg"
+                    src="images/logo-water-desalination-authority.svg"
                     alt="هيئة تحلية المياه"
-                    style="height: 64px; width: auto; object-fit: contain; background: transparent"
+                    style="height: 44px; width: auto; object-fit: contain; background: transparent"
                   />
                 </div>
               </div>
@@ -873,7 +1997,7 @@
             <div class="work-card">
               <div class="work-thumb" style="height: 200px; position: relative; overflow: hidden">
                 <img
-                  src="assets/images/image-012-85d5144cc8dc.png"
+                  src="images/security-officers-club-admin.png"
                   style="width: 100%; height: 100%; object-fit: cover"
                   alt="مبنى إداري متعدد الطوابق بنادي ضباط قوى الأمن"
                 />
@@ -903,9 +2027,9 @@
                     ><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span
                   >
                   <img
-                    src="assets/images/image-013-7a704cf6bda5.svg"
+                    src="images/logo-interior-ministry.svg"
                     alt="وزارة الداخلية"
-                    style="height: 48px; width: auto; object-fit: contain; background: transparent"
+                    style="height: 44px; width: auto; object-fit: contain; background: transparent"
                   />
                 </div>
               </div>
@@ -913,7 +2037,7 @@
             <div class="work-card">
               <div class="work-thumb" style="height: 200px; position: relative; overflow: hidden">
                 <img
-                  src="assets/images/image-014-5f5e8eb283f1.png"
+                  src="images/development-building-qassim.png"
                   style="width: 100%; height: 100%; object-fit: cover"
                   alt="إنشاء مبنى التطوير"
                 />
@@ -932,9 +2056,9 @@
                 >
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
                   <img
-                    src="assets/images/image-015-718b26522694.svg"
+                    src="images/logo-tourism-ministry.svg"
                     alt="وزارة البيئة والمياه والزراعة"
-                    style="height: 54px; width: auto; object-fit: contain; background: transparent"
+                    style="height: 44px; width: auto; object-fit: contain; background: transparent"
                   />
                 </div>
               </div>
@@ -951,7 +2075,7 @@
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
                 <img
-                  src="assets/images/image-016-fe60582e5208.png"
+                  src="images/masmak-palace-restoration.png"
                   alt="قصر المصمك"
                   style="width: 100%; height: 100%; object-fit: cover; display: block"
                 />
@@ -977,7 +2101,7 @@
                     ><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span
                   >
                   <img
-                    src="assets/images/image-017-25ebcb93db00.svg"
+                    src="images/logo-culture-ministry.svg"
                     alt="وزارة الثقافة"
                     style="height: 40px; width: auto; object-fit: contain; background: transparent"
                   />
@@ -987,7 +2111,7 @@
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
                 <img
-                  src="assets/images/image-018-c2da066c344f.png"
+                  src="images/babtain-house-yanbu.png"
                   alt="منزل حسن البابطين"
                   style="width: 100%; height: 100%; object-fit: cover; display: block"
                 />
@@ -1016,7 +2140,7 @@
                     ><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span
                   >
                   <img
-                    src="assets/images/image-019-49b2afcf3cbf.svg"
+                    src="images/logo-tourism-ministry.svg"
                     alt="وزارة السياحة"
                     style="height: 44px; width: auto; object-fit: contain; background: transparent"
                   />
@@ -1026,7 +2150,7 @@
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
                 <img
-                  src="assets/images/image-020-739b69651de6.png"
+                  src="images/abdulaziz-palace-qibah.png"
                   alt="ترميم وتأهيل قصر الملك عبدالعزيز بقبة"
                   style="width: 100%; height: 100%; object-fit: cover; display: block"
                 />
@@ -1052,7 +2176,7 @@
                     <span data-ar>الجهة المالكة:</span><span data-en>Owner:</span>
                   </span>
                   <img
-                    src="assets/images/image-017-25ebcb93db00.svg"
+                    src="images/logo-culture-ministry.svg"
                     alt="وزارة الثقافة"
                     style="height: 44px; width: auto; object-fit: contain; background: transparent"
                   />
@@ -1071,7 +2195,7 @@
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
                 <img
-                  src="assets/images/image-021-c26dc37c9519.png"
+                  src="images/miftaha-village-fencing.png"
                   alt="تسوير قرية المفتاحة"
                   style="width: 100%; height: 100%; object-fit: cover"
                 />
@@ -1097,7 +2221,7 @@
                     ><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span
                   >
                   <img
-                    src="assets/images/image-017-25ebcb93db00.svg"
+                    src="images/logo-culture-ministry.svg"
                     alt="وزارة الثقافة"
                     style="height: 40px; width: auto; object-fit: contain; background: transparent"
                   />
@@ -1108,7 +2232,7 @@
             <div class="work-card">
                             <div class="work-thumb project-thumb-img" style="height: 200px">
                 <img
-                  src="assets/images/image-022-26627238a21d.jpg"
+                  src="images/archaeological-sites-demarcation.jpg"
                   alt="تسوير وتبتير حدود المواقع الأثرية"
                   style="width: 100%; height: 100%; object-fit: cover"
                 />
@@ -1135,7 +2259,7 @@
                     ><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span
                   >
                   <img
-                    src="assets/images/image-019-49b2afcf3cbf.svg"
+                    src="images/logo-tourism-ministry.svg"
                     alt="وزارة السياحة"
                     style="height: 44px; width: auto; object-fit: contain; background: transparent"
                   />
@@ -1145,7 +2269,7 @@
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
                 <img
-                  src="assets/images/image-023-a5b28e52197b.png"
+                  src="images/alula-sites-fencing.png"
                   alt="تسوير مواقع أثرية"
                   style="width: 100%; height: 100%; object-fit: cover; display: block"
                 />
@@ -1164,7 +2288,7 @@
                 >
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
                   <img
-                    src="assets/images/image-019-49b2afcf3cbf.svg"
+                    src="images/logo-tourism-ministry.svg"
                     alt="وزارة السياحة"
                     style="height: 44px; width: auto; object-fit: contain; background: transparent"
                   />
@@ -1176,14 +2300,14 @@
 
         <div class="work-category">
           <h3 class="work-category-title">
-            <span data-ar>مشاريع الأمن الصناعي والدفاع السلبي</span>
+            <span data-ar>مشاريع الأمن الصناعي والدفاع </span>
             <span data-en>Industrial Security & Passive Defense Projects</span>
           </h3>
           <div class="works-grid">
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
                 <img
-                  src="assets/images/image-024-e12787c27bf5.png"
+                  src="images/anti-drone-mesh-umluj.png"
                   alt="شبك الحماية من الطائرات المسيرة"
                   style="width: 100%; height: 100%; object-fit: cover; display: block"
                 />
@@ -1193,14 +2317,14 @@
                 <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: أملج - الوجه - الليث</span><span data-en>Location: Umluj - Al Wajh - Al Lith</span></p>
                 <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
-                  <img src="assets/images/image-025-5cd447da029c.svg" alt="الهيئة السعودية للمياه" style="height: 48px; width: auto; object-fit: contain; background: transparent" />
+                  <img src="images/logo-water-desalination-authority.svg" alt="الهيئة السعودية للمياه" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
                 </div>
               </div>
             </div>
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
                 <img
-                  src="assets/images/image-026-69d52d0bd217.png"
+                  src="images/anti-drone-mesh-qunfudhah.png"
                   alt="شبك الحماية من الطائرات المسيرة"
                   style="width: 100%; height: 100%; object-fit: cover; display: block"
                 />
@@ -1210,14 +2334,14 @@
                 <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: القنفذة - فرسان - ضباء</span><span data-en>Location: Al Qunfudhah - Farasan - Duba</span></p>
                 <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
-                  <img src="assets/images/image-025-5cd447da029c.svg" alt="الهيئة السعودية للمياه" style="height: 48px; width: auto; object-fit: contain; background: transparent" />
+                  <img src="images/logo-water-desalination-authority.svg" alt="الهيئة السعودية للمياه" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
                 </div>
               </div>
             </div>
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
                 <img
-                  src="assets/images/image-027-b9a126b004b7.png"
+                  src="images/anti-drone-mesh-rabigh.png"
                   alt="شبك الحماية من الطائرات المسيرة"
                   style="width: 100%; height: 100%; object-fit: cover; display: block"
                 />
@@ -1227,7 +2351,7 @@
                 <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: رابغ - حقل</span><span data-en>Location: Rabigh - Haql</span></p>
                 <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
-                  <img src="assets/images/image-025-5cd447da029c.svg" alt="الهيئة السعودية للمياه" style="height: 48px; width: auto; object-fit: contain; background: transparent" />
+                  <img src="images/logo-water-desalination-authority.svg" alt="الهيئة السعودية للمياه" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
                 </div>
               </div>
             </div>
@@ -1243,7 +2367,7 @@
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
                 <img
-                  src="assets/images/image-028-98339e88e462.png"
+                  src="images/khuzam-palace-museum-reinforcement.png"
                   alt="أعمال تدعيم متحف قصر خزام"
                   style="width: 100%; height: 100%; object-fit: cover; display: block"
                 />
@@ -1253,14 +2377,14 @@
                 <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: جدة</span><span data-en>Location: Jeddah</span></p>
                 <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
-                  <img src="assets/images/image-019-49b2afcf3cbf.svg" alt="وزارة السياحة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
+                  <img src="images/logo-tourism-ministry.svg" alt="وزارة السياحة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
                 </div>
               </div>
             </div>
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
                 <img
-                  src="assets/images/image-029-68dfdf3274d3.png"
+                  src="images/abdulaziz-palace-alkharj-reinforcement.png"
                   alt="التدعيم الإنشائي لقصر الملك عبدالعزيز"
                   style="width: 100%; height: 100%; object-fit: cover; display: block"
                 />
@@ -1270,14 +2394,14 @@
                 <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: الخرج</span><span data-en>Location: Al-Kharj</span></p>
                 <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
-                  <img src="assets/images/image-017-25ebcb93db00.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
+                  <img src="images/logo-culture-ministry.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
                 </div>
               </div>
             </div>
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
                 <img
-                  src="assets/images/image-030-6d8fcc8926c2.png"
+                  src="images/kateb-palace-taif-reinforcement.png"
                   alt="أعمال تدعيم قصر الكاتب"
                   style="width: 100%; height: 100%; object-fit: cover; display: block"
                 />
@@ -1287,7 +2411,7 @@
                 <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: الطائف</span><span data-en>Location: Taif</span></p>
                 <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
-                  <img src="assets/images/image-017-25ebcb93db00.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
+                  <img src="images/logo-culture-ministry.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
                 </div>
               </div>
             </div>
@@ -1302,40 +2426,40 @@
           <div class="works-grid">
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
-                <img src="assets/images/image-031-a3b785a1ab2b.png" alt="مشروع مسح التراث المغمور" style="width: 100%; height: 100%; object-fit: cover; display: block" />
+                <img src="images/underwater-heritage-survey.png" alt="مشروع مسح التراث المغمور" style="width: 100%; height: 100%; object-fit: cover; display: block" />
               </div>
               <div class="work-body">
                 <h3><span data-ar>مشروع مسح التراث المغمور</span><span data-en>Underwater Cultural Heritage Survey Project</span></h3>
                 <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: المنطقة الشرقية - مكة المكرمة - المدينة المنورة - تبوك</span><span data-en>Location: Eastern Region - Makkah - Madinah - Tabuk</span></p>
                 <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
-                  <img src="assets/images/image-017-25ebcb93db00.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
+                  <img src="images/logo-culture-ministry.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
                 </div>
               </div>
             </div>
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
-                <img src="assets/images/image-032-b1ce2c8bca89.png" alt="أعمال التنقيب الأثري في موقع الأخدود الأثري" style="width: 100%; height: 100%; object-fit: cover; display: block" />
+                <img src="images/ukhdud-archaeological-excavation.png" alt="أعمال التنقيب الأثري في موقع الأخدود الأثري" style="width: 100%; height: 100%; object-fit: cover; display: block" />
               </div>
               <div class="work-body">
                 <h3><span data-ar>أعمال التنقيب الأثري في موقع الأخدود الأثري</span><span data-en>Archaeological Excavation Works at Al-Ukhdud Archaeological Site</span></h3>
                 <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: منطقة نجران</span><span data-en>Location: Najran Region</span></p>
                 <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
-                  <img src="assets/images/image-017-25ebcb93db00.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
+                  <img src="images/logo-culture-ministry.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
                 </div>
               </div>
             </div>
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
-                <img src="assets/images/image-033-a3c258c924e7.png" alt="مشروع المسح الأثري - المرحلة الأولى" style="width: 100%; height: 100%; object-fit: cover; display: block" />
+                <img src="images/archaeological-survey-phase1.png" alt="مشروع المسح الأثري - المرحلة الأولى" style="width: 100%; height: 100%; object-fit: cover; display: block" />
               </div>
               <div class="work-body">
                 <h3><span data-ar>مشروع المسح الأثري - المرحلة الأولى</span><span data-en>Archaeological Survey Project - Phase One</span></h3>
                 <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: عدة مواقع (25) موقعًا أثريًا في مختلف مناطق المملكة</span><span data-en>Location: 25 archaeological sites across various regions of the Kingdom</span></p>
                               <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
-                  <img src="assets/images/image-017-25ebcb93db00.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
+                  <img src="images/logo-culture-ministry.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
                 </div>
               </div>
             </div>
@@ -1350,40 +2474,40 @@
           <div class="works-grid">
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
-                <img src="assets/images/image-034-f8eb7cb8a924.png" alt="إزالة التشوّهات البصرية في موقع الفنون الصخرية التراثي" style="width: 100%; height: 100%; object-fit: cover; display: block" />
+                <img src="images/rock-art-visual-distortion-hail.png" alt="إزالة التشوّهات البصرية في موقع الفنون الصخرية التراثي" style="width: 100%; height: 100%; object-fit: cover; display: block" />
               </div>
               <div class="work-body">
                 <h3><span data-ar>إزالة التشوّهات البصرية في موقع الفنون الصخرية التراثي</span><span data-en>Removal of Visual Distortions at the Rock Art Heritage Site</span></h3>
                 <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: منطقة حائل</span><span data-en>Location: Hail Region</span></p>
                 <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
-                  <img src="assets/images/image-017-25ebcb93db00.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
+                  <img src="images/logo-culture-ministry.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
                 </div>
               </div>
             </div>
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
-                <img src="assets/images/image-035-54455fb273f7.png" alt="إزالة التشوّهات البصرية" style="width: 100%; height: 100%; object-fit: cover; display: block" />
+                <img src="images/visual-distortion-tabuk.png" alt="إزالة التشوّهات البصرية" style="width: 100%; height: 100%; object-fit: cover; display: block" />
               </div>
               <div class="work-body">
                 <h3><span data-ar>إزالة التشوّهات البصرية</span><span data-en>Removal of Visual Distortions</span></h3>
                 <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: منطقة تبوك</span><span data-en>Location: Tabuk Region</span></p>
                 <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
-                  <img src="assets/images/image-017-25ebcb93db00.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
+                  <img src="images/logo-culture-ministry.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
                 </div>
               </div>
             </div>
             <div class="work-card">
               <div class="work-thumb project-thumb-img" style="height: 200px">
-                <img src="assets/images/image-036-bd5d83d1d444.png" alt="إزالة التشوّهات البصرية" style="width: 100%; height: 100%; object-fit: cover; display: block" />
+                <img src="images/visual-distortion-aflaj.png" alt="إزالة التشوّهات البصرية" style="width: 100%; height: 100%; object-fit: cover; display: block" />
               </div>
               <div class="work-body">
                 <h3><span data-ar>إزالة التشوّهات البصرية</span><span data-en>Removal of Visual Distortions</span></h3>
                 <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: الأفلاج</span><span data-en>Location: Al-Aflaj</span></p>
                 <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
-                  <img src="assets/images/image-017-25ebcb93db00.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
+                  <img src="images/logo-culture-ministry.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
                 </div>
               </div>
             </div>
@@ -1396,44 +2520,43 @@
             <span data-en>Scientific Research Projects</span>
           </h3>
           <div class="works-grid">
-            <!-- أضف بطاقات المشاريع هنا -->
-          
+
           <div class="work-card">
                         <div class="work-thumb project-thumb-img" style="height: 200px">
-                          <img src="assets/images/image-037-58d9190c0c8c.png" alt="المسح الأثري وتوثيق قرية الفاو بالتعاون مع مدينة الملك عبدالعزيز للعلوم والتقنية (KACST)" style="width: 100%; height: 100%; object-fit: cover; display: block" />
+                          <img src="images/faw-village-kacst-survey.png" alt="المسح الأثري وتوثيق قرية الفاو بالتعاون مع مدينة الملك عبدالعزيز للعلوم والتقنية (KACST)" style="width: 100%; height: 100%; object-fit: cover; display: block" />
                         </div>
                         <div class="work-body">
                           <h3><span data-ar>المسح الأثري وتوثيق قرية الفاو بالتعاون مع مدينة الملك عبدالعزيز للعلوم والتقنية (KACST)</span><span data-en>Archaeological Survey and Documentation of Al-Faw Village in Cooperation with KACST</span></h3>
                           <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: الفاو</span><span data-en>Location: Al-Faw</span></p>
                           <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
                             <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
-                            <img src="assets/images/image-017-25ebcb93db00.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
+                            <img src="images/logo-culture-ministry.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
                           </div>
                         </div>
                       </div>
           <div class="work-card">
                         <div class="work-thumb project-thumb-img" style="height: 200px">
-                          <img src="assets/images/image-038-1a03e5c361ca.png" alt="مشاريع المسح الأثري باستخدام تقنية رادار اختراق الأرض (GPR)" style="width: 100%; height: 100%; object-fit: cover; display: block" />
+                          <img src="images/gpr-archaeological-survey.png" alt="مشاريع المسح الأثري باستخدام تقنية رادار اختراق الأرض (GPR)" style="width: 100%; height: 100%; object-fit: cover; display: block" />
                         </div>
                         <div class="work-body">
                           <h3><span data-ar>مشاريع المسح الأثري باستخدام تقنية رادار اختراق الأرض (GPR)</span><span data-en>Archaeological Survey Projects Using Ground-Penetrating Radar (GPR)</span></h3>
                           <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: 25 موقعًا أثريًا</span><span data-en>Location: 25 Archaeological Sites</span></p>
+                          <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
+                            <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
+                            <img src="images/logo-culture-ministry.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
+                          </div>
                         </div>
-              <div style="display: flex; align-items: center; gap: 10px; margin-top: 0.75rem">
-                <span data-ar>الجهة المالكة:</span><span data-en>Owner:</span>
-                <img src="assets/images/image-017-25ebcb93db00.svg" alt="Ministry of Culture" style="height: 34px; width: auto; object-fit: contain; background: transparent" />
-              </div>
             </div>
           <div class="work-card">
                         <div class="work-thumb project-thumb-img" style="height: 200px">
-                          <img src="assets/images/image-039-c925b323922e.jpg" alt="مشروع تحديث وتوثيق 2,500 موقع ثقافي في سجل الآثار" style="width: 100%; height: 100%; object-fit: cover; display: block" />
+                          <img src="images/cultural-sites-documentation-2500.jpg" alt="مشروع تحديث وتوثيق 2,500 موقع ثقافي في سجل الآثار" style="width: 100%; height: 100%; object-fit: cover; display: block" />
                         </div>
                         <div class="work-body">
                           <h3><span data-ar>مشروع تحديث وتوثيق 2,500 موقع ثقافي في سجل الآثار</span><span data-en>Updating and Documenting 2,500 Cultural Sites in the Antiquities Register</span></h3>
                           <p style="margin-bottom: 0.75rem"><span data-ar>الموقع: 2,500 موقع ثقافي</span><span data-en>Location: 2,500 Cultural Sites</span></p>
                           <div style="display: flex; align-items: center; gap: 10px; padding-top: 0.75rem; border-top: 0.5px solid var(--border-soft)">
                             <span style="font-size: 11px; color: var(--text-muted); font-weight: 600"><span data-ar>الجهة المالكة:</span><span data-en>Owner:</span></span>
-                            <img src="assets/images/image-017-25ebcb93db00.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
+                            <img src="images/logo-culture-ministry.svg" alt="وزارة الثقافة" style="height: 44px; width: auto; object-fit: contain; background: transparent" />
                           </div>
                         </div>
                       </div>
@@ -1442,7 +2565,6 @@
       </div>
     </section>
 
-    <!-- ═══════════════ TEAM ═══════════════ -->
     <section id="team">
       <div class="section-label"><span data-ar>فريقنا</span><span data-en>Our Team</span></div>
       <h2 class="section-title">
@@ -1460,12 +2582,12 @@
         >
       </p>
 
-      <!-- الإدارة العليا / Senior Leadership -->
       <div class="team-grid">
-        <div class="team-card">
+        <div class="team-lead-row">
+        <div class="team-card team-card-ceo">
           <div class="team-avatar">
             <img
-              src="assets/images/image-040-1ab584e7056c.svg"
+              src="images/man.svg"
               alt="عقاب العتيبي"
               style="width: 56px; height: 56px; object-fit: contain; display: block"
             />
@@ -1475,82 +2597,12 @@
             <span data-ar>الرئيس التنفيذي</span><span data-en>Chief Executive Officer</span>
           </div>
         </div>
-
-        <div class="team-card">
-          <div class="team-avatar">
-            <img
-              src="assets/images/image-040-1ab584e7056c.svg"
-              alt="سعود العتيبي"
-              style="width: 56px; height: 56px; object-fit: contain; display: block"
-            />
-          </div>
-          <h3><span data-ar>سعود العتيبي</span><span data-en>Saud Al-Otaibi</span></h3>
-          <div class="team-role">
-            <span data-ar>مدير الإدارة القانونية</span><span data-en>Legal Affairs Director</span>
-          </div>
         </div>
-
+        <div class="team-managers-grid">
         <div class="team-card">
           <div class="team-avatar">
             <img
-              src="assets/images/image-041-23bb03cf2ea2.svg"
-              alt="أثير الشرهان"
-              style="width: 56px; height: 56px; object-fit: contain; display: block"
-            />
-          </div>
-          <h3><span data-ar>أثير الشرهان</span><span data-en>Atheer Al-Sharhan</span></h3>
-          <div class="team-role">
-            <span data-ar>مدير التواصل والتسويق</span
-            ><span data-en>Communications & Marketing</span>
-          </div>
-        </div>
-
-        <div class="team-card">
-          <div class="team-avatar">
-            <img
-              src="assets/images/image-040-1ab584e7056c.svg"
-              alt="سعد الحارثي"
-              style="width: 56px; height: 56px; object-fit: contain; display: block"
-            />
-          </div>
-          <h3><span data-ar>سعد الحارثي</span><span data-en>Saad Al-Harthi</span></h3>
-          <div class="team-role">
-            <span data-ar>مدير إدارة الموارد البشرية</span><span data-en>HR Director</span>
-          </div>
-        </div>
-
-        <div class="team-card">
-          <div class="team-avatar">
-            <img
-              src="assets/images/image-040-1ab584e7056c.svg"
-              alt="د. مصطفى رسلان"
-              style="width: 56px; height: 56px; object-fit: contain; display: block"
-            />
-          </div>
-          <h3><span data-ar>د. مصطفى رسلان</span><span data-en>Dr. Mustafa Raslan</span></h3>
-          <div class="team-role">
-            <span data-ar>مدير الإدارة المالية</span><span data-en>Finance Director</span>
-          </div>
-        </div>
-
-        <div class="team-card">
-          <div class="team-avatar">
-            <img
-              src="assets/images/image-040-1ab584e7056c.svg"
-              alt="د. عبدالله السعود"
-              style="width: 56px; height: 56px; object-fit: contain; display: block"
-            />
-          </div>
-          <h3><span data-ar>د. عبدالله السعود</span><span data-en>Dr. Abdullah Al-Saud</span></h3>
-          <div class="team-role">
-            <span data-ar>مدير إدارة الآثار</span><span data-en>Antiquities Director</span>
-          </div>
-        </div>
-
-        <div class="team-card">
-          <div class="team-avatar">
-            <img
-              src="assets/images/image-041-23bb03cf2ea2.svg"
+              src="images/woman.svg"
               alt="م. لمياء الحجيلي"
               style="width: 56px; height: 56px; object-fit: contain; display: block"
             />
@@ -1565,7 +2617,78 @@
         <div class="team-card">
           <div class="team-avatar">
             <img
-              src="assets/images/image-040-1ab584e7056c.svg"
+              src="images/man.svg"
+              alt="سعود العتيبي"
+              style="width: 56px; height: 56px; object-fit: contain; display: block"
+            />
+          </div>
+          <h3><span data-ar>سعود العتيبي</span><span data-en>Saud Al-Otaibi</span></h3>
+          <div class="team-role">
+            <span data-ar>مدير الإدارة القانونية</span><span data-en>Legal Affairs Director</span>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar">
+            <img
+              src="images/woman.svg"
+              alt="أثير الشرهان"
+              style="width: 56px; height: 56px; object-fit: contain; display: block"
+            />
+          </div>
+          <h3><span data-ar>أثير الشرهان</span><span data-en>Atheer Al-Sharhan</span></h3>
+          <div class="team-role">
+            <span data-ar>مدير التواصل والتسويق</span
+            ><span data-en>Communications & Marketing</span>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar">
+            <img
+              src="images/man.svg"
+              alt="سعد الحارثي"
+              style="width: 56px; height: 56px; object-fit: contain; display: block"
+            />
+          </div>
+          <h3><span data-ar>سعد الحارثي</span><span data-en>Saad Al-Harthi</span></h3>
+          <div class="team-role">
+            <span data-ar>مدير إدارة الموارد البشرية</span><span data-en>HR Director</span>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar">
+            <img
+              src="images/man.svg"
+              alt="د. مصطفى رسلان"
+              style="width: 56px; height: 56px; object-fit: contain; display: block"
+            />
+          </div>
+          <h3><span data-ar>د. مصطفى رسلان</span><span data-en>Dr. Mustafa Raslan</span></h3>
+          <div class="team-role">
+            <span data-ar>مدير الإدارة المالية</span><span data-en>Finance Director</span>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar">
+            <img
+              src="images/man.svg"
+              alt="د. عبدالله السعود"
+              style="width: 56px; height: 56px; object-fit: contain; display: block"
+            />
+          </div>
+          <h3><span data-ar>د. عبدالله السعود</span><span data-en>Dr. Abdullah Al-Saud</span></h3>
+          <div class="team-role">
+            <span data-ar>مدير إدارة الآثار</span><span data-en>Antiquities Director</span>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar">
+            <img
+              src="images/man.svg"
               alt="م. أحمد عبدالباسط"
               style="width: 56px; height: 56px; object-fit: contain; display: block"
             />
@@ -1579,7 +2702,7 @@
         <div class="team-card">
           <div class="team-avatar">
             <img
-              src="assets/images/image-040-1ab584e7056c.svg"
+              src="images/man.svg"
               alt="م. طاهر الجندي"
               style="width: 56px; height: 56px; object-fit: contain; display: block"
             />
@@ -1593,7 +2716,7 @@
         <div class="team-card">
           <div class="team-avatar">
             <img
-              src="assets/images/image-040-1ab584e7056c.svg"
+              src="images/man.svg"
               alt="م. أحمد كامل"
               style="width: 56px; height: 56px; object-fit: contain; display: block"
             />
@@ -1604,9 +2727,9 @@
             ><span data-en>Design & Architecture Director</span>
           </div>
         </div>
+        </div>
       </div>
 
-      <!-- فريق التصميم والعمارة -->
       <div class="team-divider"></div>
       <p class="team-sub-title">
         <span data-ar>⚙ فريق إدارة التصميم والعمارة</span>
@@ -1638,22 +2761,20 @@
       </div>
     </section>
 
-    <!-- ═══════════════ WHY US ═══════════════ -->
     <section id="why">
       <div class="section-label">
         <span data-ar>لماذا نحن</span><span data-en>Why Choose Us</span>
       </div>
       <h2 class="section-title">
-        <span data-ar>ما يميزنا عن الآخرين</span>
-        <span data-en>What Sets Us Apart</span>
+        <span data-ar>ما نتميز به</span>
+        <span data-en>What We Excel At</span>
       </h2>
       <p class="section-sub">
         <span data-ar
-          >نجمع بين الخبرة الواسعة والتقنيات الحديثة لنقدم لك نتائج تتجاوز التوقعات.</span
+          >تعتمد أعمالنا على خبرات متعددة التخصصات وتقنيات حديثة تدعم جودة التنفيذ والالتزام بمتطلبات الجهات المستفيدة.</span
         >
         <span data-en
-          >We combine deep expertise with modern technologies to deliver results that exceed
-          expectations.</span
+          >Our work is supported by multidisciplinary expertise and modern technologies that enhance execution quality and alignment with client requirements.</span
         >
       </p>
       <div class="why-grid">
@@ -1695,7 +2816,7 @@
           </h3>
           <p>
             <span data-ar
-              >خبرة موثّقة في 8 مواقع تراث عالمي معتمدة من اليونسكو ومشاريع مع أكثر من 20 جهة حكومية
+              >خبرة موثّقة في 8 مواقع تراث عالمي مسجلة في اليونسكو ومشاريع مع أكثر من 20 جهة حكومية
               سعودية.</span
             ><span data-en
               >Documented expertise in 8 UNESCO World Heritage Sites and projects with over 20 Saudi
@@ -1721,7 +2842,6 @@
       </div>
     </section>
 
-    <!-- ═══════════════ CONTACT ═══════════════ -->
     <section id="contact">
       <div class="section-label">
         <span data-ar>تواصل معنا</span><span data-en>Contact Us</span>
@@ -1731,10 +2851,9 @@
         <span data-en>We're Here to Serve You</span>
       </h2>
       <p class="section-sub">
-        <span data-ar>للاستفسارات والمشاريع، تواصل معنا وسيرد عليك فريقنا في أقرب وقت.</span>
+        <span data-ar>للاستفسارات والمساعدة</span>
         <span data-en
-          >For inquiries and projects, reach out and our team will respond at the earliest
-          opportunity.</span
+          >For inquiries and assistance</span
         >
       </p>
       <div class="contact-grid">
@@ -1852,36 +2971,21 @@
       </div>
     </section>
 
-    <!-- ═══════════════ FOOTER ═══════════════ -->
     <footer>
       <div class="footer-top">
         <div class="footer-brand">
-          <!-- White version logo -->
           <img
-            src="assets/images/image-042-c6c11dc0870b.png"
+            src="images/logo-footer-white.png"
             alt="Majal Al Enjaz"
             class="logo-svg-white"
-            style="height: 52px; width: auto; object-fit: contain; background: transparent"
+            style="height: 42px; width: auto; object-fit: contain; background: transparent"
           />
-          <p>
-            <span data-ar
-              >شركة سعودية رائدة في الأعمال الإنشائية والخدمية المتقدمة، نسعى دائماً إلى تجاوز
-              توقعات عملائنا.</span
-            >
-            <span data-en
-              >A leading Saudi company in advanced construction and service works, always striving
-              to exceed our clients' expectations.</span
-            >
-          </p>
         </div>
         <div class="footer-links">
           <h4><span data-ar>روابط سريعة</span><span data-en>Quick Links</span></h4>
           <ul>
             <li>
               <a href="#about"><span data-ar>من نحن</span><span data-en>About Us</span></a>
-            </li>
-            <li>
-              <a href="#services"><span data-ar>خدماتنا</span><span data-en>Services</span></a>
             </li>
             <li>
               <a href="#projects"><span data-ar>مشاريعنا</span><span data-en>Projects</span></a>
@@ -1891,31 +2995,6 @@
             </li>
             <li>
               <a href="#contact"><span data-ar>تواصل معنا</span><span data-en>Contact</span></a>
-            </li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <h4><span data-ar>خدماتنا</span><span data-en>Services</span></h4>
-          <ul>
-            <li>
-              <a href="#services"
-                ><span data-ar>المقاولات العامة</span><span data-en>General Contracting</span></a
-              >
-            </li>
-            <li>
-              <a href="#services"
-                ><span data-ar>الأعمال الكهربائية</span><span data-en>Electrical Works</span></a
-              >
-            </li>
-            <li>
-              <a href="#services"
-                ><span data-ar>أعمال التشطيب</span><span data-en>Finishing Works</span></a
-              >
-            </li>
-            <li>
-              <a href="#services"
-                ><span data-ar>الصيانة والتشغيل</span><span data-en>Maintenance</span></a
-              >
             </li>
           </ul>
         </div>
@@ -1932,6 +3011,71 @@
       </div>
     </footer>
 
-    <script src="assets/script-01.js"></script>
+    <script>
+      function switchTab(panel, btn) {
+        document.querySelectorAll(".ptab").forEach((t) => t.classList.remove("active"));
+        document.querySelectorAll(".ptab-panel").forEach((p) => p.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("panel-" + panel).classList.add("active");
+      }
+
+      let isEn = false;
+
+      function applyLanguage(en) {
+        isEn = en;
+        const body = document.body;
+        const html = document.documentElement;
+        const label = document.getElementById("langLabel");
+
+        body.classList.toggle("en", en);
+        body.dir = en ? "ltr" : "rtl";
+        html.lang = en ? "en" : "ar";
+        html.dir = en ? "ltr" : "rtl";
+        if (label) label.textContent = en ? "عربي" : "English";
+        updateSelectOptions(en);
+      }
+
+      function toggleLang() {
+        applyLanguage(!isEn);
+      }
+
+      function updateSelectOptions(en) {
+        const sel = document.querySelector("select");
+        if (!sel) return;
+        const arOptions = [
+          ["", "اختر الخدمة"],
+          ["general", "المقاولات العامة"],
+          ["electrical", "الأعمال الكهربائية"],
+          ["finishing", "أعمال التشطيب"],
+          ["hvac", "أنظمة HVAC"],
+          ["it", "تقنية المعلومات"],
+          ["maintenance", "الصيانة والتشغيل"],
+        ];
+        const enOptions = [
+          ["", "Select service"],
+          ["general", "General Contracting"],
+          ["electrical", "Electrical Works"],
+          ["finishing", "Finishing Works"],
+          ["hvac", "HVAC Systems"],
+          ["it", "IT Infrastructure"],
+          ["maintenance", "Maintenance & Operations"],
+        ];
+        const opts = en ? enOptions : arOptions;
+        sel.innerHTML = "";
+        opts.forEach(([val, txt], i) => {
+          const o = document.createElement("option");
+          o.value = val;
+          o.textContent = txt;
+          if (i === 0) {
+            o.disabled = true;
+            o.selected = true;
+          }
+          sel.appendChild(o);
+        });
+      }
+      window.onload = function () {
+        updateSelectOptions(false);
+      };
+    </script>
   </body>
 </html>
